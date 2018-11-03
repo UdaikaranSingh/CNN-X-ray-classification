@@ -3,14 +3,14 @@
 # Fall 2018
 # Code author: Udaikaran Singh
 #
-# Filename: architecture1_cnn.py
+# Filename: architecture2_cnn.py
 # 
 # Description: 
 # 
-# 3 convolution layers -> maxpooling -> sigmoid layer 
-# -> fc1 -> fc2 -> fc3 (output)
+# 5 convolution layers -> maxpooling ->
+# -> fc1 -> fc2 (output)
 #
-# Maxpooling is  [4x4] kernel
+# Maxpooling is  [8x8] kernel
 ################################################################################
 
 import torch
@@ -30,41 +30,57 @@ import numpy as np
 import os
 
 
-class arch1_cnn(nn.Module):
+class arch2_cnn(nn.Module):
 	def __init__(self):
-		
+
 		#convolutional layer 1
 		self.conv1 = nn.Conv2d(in_channels = 1, out_channels = 12, kernel_size = 8)
 		self.conv1_normed = nn.BatchNorm2d(12)
 		torch_init.xavier_normal_(self.conv1.weight)
 
 		#convolution layer 2
-		self.conv2 = nn.Conv2d(in_channels = 12, out_channels = 10, kernel_size = 8)
-        self.conv2_normed = nn.BatchNorm2d(10)
+		self.conv2 = nn.Conv2d(in_channels = 12, out_channels = 16, kernel_size = 8)
+        self.conv2_normed = nn.BatchNorm2d(16)
         torch_init.xavier_normal_(self.conv2.weight)
 
         #convolutional layer 3
-        self.conv3 = nn.Conv2d(in_channels = 10, out_channels = 8, kernel_size = 6)
-        self.conv3_normed = nn.BatchNorm2d(8)
+        self.conv3 = nn.Conv2d(in_channels = 16, out_channels = 20, kernel_size = 8)
+        self.conv3_normed = nn.BatchNorm2d(20)
         torch_init.xavier_normal_(self.conv3.weight)
 
-        #max-pooling
-        self.pool = nn.MaxPool2d(kernel_size = 4, stride = 4)
+        #convolutional layer 4
+        self.conv4 = nn.Conv2d(in_channels = 20, out_channels = 24, kernel_size = 6)
+        self.conv4_normed = nn.BatchNorm2d(24)
+        torch_init.xavier_normal_(self.conv4.weight)
+
+        #convolutional layer 5
+        self.conv5 = nn.Conv2d(in_channels = 24, out_channels = 28, kernel_size = 6)
+        self.conv5_normed = nn.BatchNorm2d(28)
+        torch_init.xavier_normal_(self.conv5.weight)
+
+        #pooling layer
+        self.pool = nn.MaxPool2d(kernel_size = 8, stride = 8)
 
         #fully connected layer 1
-        self.fc1 = nn.Linear(in_features = 528288, out_features = 512)
-        self.fc1_normed = nn.BatchNorm1d(512)
+        self.fc1 = nn.Linear(in_features = 458752, out_features = 128)
+        self.fc1_normed = nn.BatchNorm1d(128)
         torch_init.xavier_normal_(self.fc1.weight)
 
         #fully connected layer 2
-        self.fc2 = nn.Linear(in_features = 512, out_features = 128)
-        self.fc2_normed = nn.BatchNorm1d(128)
+        self.fc2 = nn.Linear(in_features = 128, out_features = 10).cuda()
         torch_init.xavier_normal_(self.fc2.weight)
 
-        #fully connected layer 3
-        self.fc3 = nn.Linear(in_features = 128, out_features = 10).cuda()
-        torch_init.xavier_normal_(self.fc3.weight)
+        #pooling
+		batch = self.pool(batch)
 
+		#flattening data
+		batch = batch.view(-1, self.num_flat_features(batch))
+
+		#fully connected layers
+		batch = func.relu(self.fc1(batch))
+		batch = self.fc2(batch)
+
+		return func.sigmoid(batch)
 
 
 	def forward(self, batch):
@@ -73,23 +89,8 @@ class arch1_cnn(nn.Module):
 		batch = func.relu(self.conv1_normed(self.conv1(batch)))
 		batch = func.relu(self.conv2_normed(self.conv2(batch)))
 		batch = func.relu(self.conv3_normed(self.conv3(batch)))
-
-		#pooling
-		batch = self.pool(batch)
-
-		#flattening data
-		batch = batch.view(-1, self.num_flat_features(batch))
-
-		#applying sigmoid
-		batch = func.sigmoid(batch)
-
-		#fully connected layers
-		batch = func.relu(self.fc1(batch))
-		batch = func.relu(self.fc2(batch))
-		batch = self.fc3(batch)
-
-		return func.sigmoid(batch)
-
+		batch = func.relu(self.conv4_normed(self.conv4(batch)))
+		batch = func.relu(self.conv5_normed(self.conv5(batch)))
 
 
 	def num_flat_features(self, inputs):
