@@ -137,7 +137,7 @@ class ChestXrayDataset(Dataset):
     
     
 
-def create_split_loaders(batch_size, seed, transform=transforms.ToTensor(),
+def create_split_loaders(batch_size, seed, transform = transforms.ToTensor(),
                          p_val=0.1, p_test=0.2, shuffle=True, 
                          show_sample=False, extras={}):
     """ Creates the DataLoader objects for the training, validation, and test sets. 
