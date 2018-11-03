@@ -63,17 +63,17 @@ class BasicCNN(nn.Module):
         # the necessary value based on the provided specs for each layer
 
         #TODO: conv2: X input channels, 10 output channels, [8x8] kernel
-        self.conv2 = nn.Conv2d(__, __, __)
-        self.conv2_normed = nn.BatchNorm2d(__)
-        torch_init.xavier_normal_(_______)
+        self.conv2 = nn.Conv2d(in_channels = 12, out_channels = 10, kernel_size=8)
+        self.conv2_normed = nn.BatchNorm2d(10)
+        torch_init.xavier_normal_(self.conv2.weight)
 
         #TODO: conv3: X input channels, 8 output channels, [6x6] kernel
-        self.conv3 = nn.Conv2d(__, __, __)
-        self.conv3_normed = nn.BatchNorm2d(__)
-        torch_init.xavier_normal_(_______)
+        self.conv3 = nn.Conv2d(in_channels = 10, out_channels = 8, kernel_size=6)
+        self.conv3_normed = nn.BatchNorm2d(8)
+        torch_init.xavier_normal_(8)
 
         #TODO: Apply max-pooling with a [3x3] kernel using tiling (*NO SLIDING WINDOW*)
-        self.pool = nn.MaxPool2d(kernel_size=3, stride=__)
+        self.pool = nn.MaxPool2d(kernel_size=3, stride=3)
 
         # Define 2 fully connected layers:
         #TODO: Use the value you computed in Part 1, Question 4 for fc1's in_features
