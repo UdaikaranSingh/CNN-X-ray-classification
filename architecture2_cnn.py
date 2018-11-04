@@ -59,7 +59,7 @@ class arch2_cnn(nn.Module):
         torch_init.xavier_normal_(self.conv5.weight)
 
         #pooling layer
-        self.pool = nn.MaxPool2d(kernel_size = 8, stride = 8)
+        self.pool = nn.MaxPool2d(kernel_size = 4, stride = 4)
 
         #fully connected layer 1
         self.fc1 = nn.Linear(in_features = 458752, out_features = 128)
@@ -89,8 +89,19 @@ class arch2_cnn(nn.Module):
 		batch = func.relu(self.conv1_normed(self.conv1(batch)))
 		batch = func.relu(self.conv2_normed(self.conv2(batch)))
 		batch = func.relu(self.conv3_normed(self.conv3(batch)))
+		batch = self.pool(batch)
 		batch = func.relu(self.conv4_normed(self.conv4(batch)))
 		batch = func.relu(self.conv5_normed(self.conv5(batch)))
+		batch = self.pool(batch)
+
+		#flattening data
+		batch = batch.view(-1, self.num_flat_features(batch))
+
+		#Fully Connected Layers
+        batch = func.relu(self.fc1(batch))
+        batch = self.fc2(batch)
+
+        return func.sigmoid(batch)
 
 
 	def num_flat_features(self, inputs):
