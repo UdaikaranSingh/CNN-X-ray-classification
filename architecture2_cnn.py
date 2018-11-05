@@ -70,18 +70,6 @@ class arch2_cnn(nn.Module):
         self.fc2 = nn.Linear(in_features = 128, out_features = 10).cuda()
         torch_init.xavier_normal_(self.fc2.weight)
 
-        #pooling
-		batch = self.pool(batch)
-
-		#flattening data
-		batch = batch.view(-1, self.num_flat_features(batch))
-
-		#fully connected layers
-		batch = func.relu(self.fc1(batch))
-		batch = self.fc2(batch)
-
-		return func.sigmoid(batch)
-
 
 	def forward(self, batch):
 		

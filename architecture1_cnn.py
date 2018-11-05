@@ -72,16 +72,13 @@ class arch1_cnn(nn.Module):
 		#convolutional layers
 		batch = func.relu(self.conv1_normed(self.conv1(batch)))
 		batch = func.relu(self.conv2_normed(self.conv2(batch)))
-		batch = func.relu(self.conv3_normed(self.conv3(batch)))
+		batch = func.sigmoid(self.conv3_normed(self.conv3(batch)))
 
 		#pooling
 		batch = self.pool(batch)
 
 		#flattening data
 		batch = batch.view(-1, self.num_flat_features(batch))
-
-		#applying sigmoid
-		batch = func.sigmoid(batch)
 
 		#fully connected layers
 		batch = func.relu(self.fc1(batch))
