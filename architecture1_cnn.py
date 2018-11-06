@@ -62,7 +62,7 @@ class arch1_cnn(nn.Module):
         torch_init.xavier_normal_(self.fc2.weight)
 
         #fully connected layer 3
-        self.fc3 = nn.Linear(in_features = 128, out_features = 10).cuda()
+        self.fc3 = nn.Linear(in_features = 128, out_features = 14).cuda()
         torch_init.xavier_normal_(self.fc3.weight)
 
 

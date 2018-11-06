@@ -1,7 +1,7 @@
 ################################################################################
 # CSE 190: Programming Assignment 3
 # Fall 2018
-# Code author: Jenny Hamer
+# Code author: Udaikaran Singh
 #
 # Filename: baseline_cnn.py
 # 
@@ -77,12 +77,12 @@ class BasicCNN(nn.Module):
 
         # Define 2 fully connected layers:
         #TODO: Use the value you computed in Part 1, Question 4 for fc1's in_features
-        self.fc1 = nn.Linear(in_features = 528288, out_features = 128)
+        self.fc1 = nn.Linear(in_features = 504008, out_features = 128)
         self.fc1_normed = nn.BatchNorm1d(128)
         torch_init.xavier_normal_(self.fc1.weight)
 
         #TODO: Output layer: what should out_features be?
-        self.fc2 = nn.Linear(in_features = 128, out_features = 10).cuda()
+        self.fc2 = nn.Linear(in_features = 128, out_features = 14).cuda()
         torch_init.xavier_normal_(self.fc2.weight)
 
 
