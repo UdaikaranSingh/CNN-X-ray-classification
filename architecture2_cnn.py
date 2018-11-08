@@ -34,28 +34,28 @@ class arch2_cnn(nn.Module):
 	def __init__(self):
 
 		#convolutional layer 1
-		self.conv1 = nn.Conv2d(in_channels = 1, out_channels = 12, kernel_size = 8)
-		self.conv1_normed = nn.BatchNorm2d(12)
+		self.conv1 = nn.Conv2d(in_channels = 1, out_channels = 16, kernel_size = 8)
+		self.conv1_normed = nn.BatchNorm2d(16)
 		torch_init.xavier_normal_(self.conv1.weight)
 
 		#convolution layer 2
-		self.conv2 = nn.Conv2d(in_channels = 12, out_channels = 16, kernel_size = 8)
-        self.conv2_normed = nn.BatchNorm2d(16)
+		self.conv2 = nn.Conv2d(in_channels = 16, out_channels = 14, kernel_size = 8)
+        self.conv2_normed = nn.BatchNorm2d(14)
         torch_init.xavier_normal_(self.conv2.weight)
 
         #convolutional layer 3
-        self.conv3 = nn.Conv2d(in_channels = 16, out_channels = 20, kernel_size = 8)
-        self.conv3_normed = nn.BatchNorm2d(20)
+        self.conv3 = nn.Conv2d(in_channels = 14, out_channels = 12, kernel_size = 8)
+        self.conv3_normed = nn.BatchNorm2d(12)
         torch_init.xavier_normal_(self.conv3.weight)
 
         #convolutional layer 4
-        self.conv4 = nn.Conv2d(in_channels = 20, out_channels = 24, kernel_size = 6)
-        self.conv4_normed = nn.BatchNorm2d(24)
+        self.conv4 = nn.Conv2d(in_channels = 12, out_channels = 10, kernel_size = 6)
+        self.conv4_normed = nn.BatchNorm2d(10)
         torch_init.xavier_normal_(self.conv4.weight)
 
         #convolutional layer 5
-        self.conv5 = nn.Conv2d(in_channels = 24, out_channels = 28, kernel_size = 6)
-        self.conv5_normed = nn.BatchNorm2d(28)
+        self.conv5 = nn.Conv2d(in_channels = 10, out_channels = 8, kernel_size = 6)
+        self.conv5_normed = nn.BatchNorm2d(8)
         torch_init.xavier_normal_(self.conv5.weight)
 
         #pooling layer
