@@ -73,7 +73,7 @@ class BasicCNN(nn.Module):
         torch_init.xavier_normal_(self.conv3.weight)
 
         #TODO: Apply max-pooling with a [4x4] kernel using tiling (*NO SLIDING WINDOW*)
-        self.pool = nn.MaxPool2d(kernel_size = 4, stride = 4)
+        self.pool = nn.MaxPool2d(kernel_size = 3, stride = 3)
 
         # Define 2 fully connected layers:
         #TODO: Use the value you computed in Part 1, Question 4 for fc1's in_features
