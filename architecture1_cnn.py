@@ -32,6 +32,7 @@ import os
 
 class arch1_cnn(nn.Module):
 	def __init__(self):
+		super(arch1_cnn, self).__init__()
 		
 		#convolutional layer 1
 		self.conv1 = nn.Conv2d(in_channels = 1, out_channels = 12, kernel_size = 8)
@@ -40,13 +41,13 @@ class arch1_cnn(nn.Module):
 
 		#convolution layer 2
 		self.conv2 = nn.Conv2d(in_channels = 12, out_channels = 10, kernel_size = 8)
-        self.conv2_normed = nn.BatchNorm2d(10)
-        torch_init.xavier_normal_(self.conv2.weight)
+		self.conv2_normed = nn.BatchNorm2d(10)
+		torch_init.xavier_normal_(self.conv2.weight)
 
-        #convolutional layer 3
-        self.conv3 = nn.Conv2d(in_channels = 10, out_channels = 8, kernel_size = 6)
-        self.conv3_normed = nn.BatchNorm2d(8)
-        torch_init.xavier_normal_(self.conv3.weight)
+		#convolutional layer 3
+		self.conv3 = nn.Conv2d(in_channels = 10, out_channels = 8, kernel_size = 6)
+		self.conv3_normed = nn.BatchNorm2d(8)
+		torch_init.xavier_normal_(self.conv3.weight)
 
         #max-pooling
         self.pool = nn.MaxPool2d(kernel_size = 4, stride = 4)
