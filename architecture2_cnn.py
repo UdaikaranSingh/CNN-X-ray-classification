@@ -31,15 +31,15 @@ import os
 
 
 class arch2_cnn(nn.Module):
-	def __init__(self):
-
-		#convolutional layer 1
-		self.conv1 = nn.Conv2d(in_channels = 1, out_channels = 16, kernel_size = 8)
-		self.conv1_normed = nn.BatchNorm2d(16)
-		torch_init.xavier_normal_(self.conv1.weight)
-
-		#convolution layer 2
-		self.conv2 = nn.Conv2d(in_channels = 16, out_channels = 14, kernel_size = 8)
+    def __init__(self):
+        
+        #convolutional layer 1
+        self.conv1 = nn.Conv2d(in_channels = 1, out_channels = 16, kernel_size = 8)
+        self.conv1_normed = nn.BatchNorm2d(16)
+        torch_init.xavier_normal_(self.conv1.weight)
+        
+        #convolution layer 2
+        self.conv2 = nn.Conv2d(in_channels = 16, out_channels = 14, kernel_size = 8)
         self.conv2_normed = nn.BatchNorm2d(14)
         torch_init.xavier_normal_(self.conv2.weight)
 
@@ -71,28 +71,28 @@ class arch2_cnn(nn.Module):
         torch_init.xavier_normal_(self.fc2.weight)
 
 
-	def forward(self, batch):
-		
-		#convolutional layers
-		batch = func.relu(self.conv1_normed(self.conv1(batch)))
-		batch = func.relu(self.conv2_normed(self.conv2(batch)))
-		batch = func.relu(self.conv3_normed(self.conv3(batch)))
-		batch = self.pool(batch)
-		batch = func.relu(self.conv4_normed(self.conv4(batch)))
-		batch = func.relu(self.conv5_normed(self.conv5(batch)))
-		batch = self.pool(batch)
-
-		#flattening data
-		batch = batch.view(-1, self.num_flat_features(batch))
-
-		#Fully Connected Layers
+    def forward(self, batch):
+        
+        #convolutional layers
+        batch = func.relu(self.conv1_normed(self.conv1(batch)))
+        batch = func.relu(self.conv2_normed(self.conv2(batch)))
+        batch = func.relu(self.conv3_normed(self.conv3(batch)))
+        batch = self.pool(batch)
+        batch = func.relu(self.conv4_normed(self.conv4(batch)))
+        batch = func.relu(self.conv5_normed(self.conv5(batch)))
+        batch = self.pool(batch)
+        
+        #flattening data
+        batch = batch.view(-1, self.num_flat_features(batch))
+        
+        #Fully Connected Layers
         batch = func.relu(self.fc1(batch))
         batch = self.fc2(batch)
 
         return func.sigmoid(batch)
 
 
-	def num_flat_features(self, inputs):
+    def num_flat_features(self, inputs):
         
         # Get the dimensions of the layers excluding the inputs
         size = inputs.size()[1:]
