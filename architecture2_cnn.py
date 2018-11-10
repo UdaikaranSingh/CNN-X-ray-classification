@@ -32,6 +32,7 @@ import os
 
 class arch2_cnn(nn.Module):
     def __init__(self):
+        super(arch1_cnn, self).__init__()
         
         #convolutional layer 1
         self.conv1 = nn.Conv2d(in_channels = 1, out_channels = 16, kernel_size = 8)
