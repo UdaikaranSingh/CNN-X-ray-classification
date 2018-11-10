@@ -35,25 +35,25 @@ class arch1_cnn(nn.Module):
         super(arch1_cnn, self).__init__()
         
         #convolutional layer 1
-        self.conv1 = nn.Conv2d(in_channels = 1, out_channels = 20, kernel_size = 8)
-        self.conv1_normed = nn.BatchNorm2d(20)
+        self.conv1 = nn.Conv2d(in_channels = 1, out_channels = 6, kernel_size = 8)
+        self.conv1_normed = nn.BatchNorm2d(6)
         torch_init.xavier_normal_(self.conv1.weight)
         
         #convolution layer 2
-        self.conv2 = nn.Conv2d(in_channels = 20, out_channels = 16, kernel_size = 8)
-        self.conv2_normed = nn.BatchNorm2d(16)
+        self.conv2 = nn.Conv2d(in_channels = 6, out_channels = 10, kernel_size = 8)
+        self.conv2_normed = nn.BatchNorm2d(10)
         torch_init.xavier_normal_(self.conv2.weight)
 
         #convolutional layer 3
-        self.conv3 = nn.Conv2d(in_channels = 16, out_channels = 12, kernel_size = 6)
-        self.conv3_normed = nn.BatchNorm2d(12)
+        self.conv3 = nn.Conv2d(in_channels = 10, out_channels = 14, kernel_size = 8)
+        self.conv3_normed = nn.BatchNorm2d(14)
         torch_init.xavier_normal_(self.conv3.weight)
         
         #max-pooling
-        self.pool = nn.MaxPool2d(kernel_size = 3, stride = 3)
+        self.pool = nn.MaxPool2d(kernel_size = 4, stride = 4)
 
         #fully connected layer 1
-        self.fc1 = nn.Linear(in_features = 322752, out_features = 512)
+        self.fc1 = nn.Linear(in_features = 208376, out_features = 512)
         self.fc1_normed = nn.BatchNorm1d(512)
         torch_init.xavier_normal_(self.fc1.weight)
 
