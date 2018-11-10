@@ -60,10 +60,10 @@ class arch2_cnn(nn.Module):
         torch_init.xavier_normal_(self.conv5.weight)
 
         #pooling layer
-        self.pool = nn.MaxPool2d(kernel_size = 4, stride = 4)
+        self.pool = nn.MaxPool2d(kernel_size = 3, stride = 3)
 
         #fully connected layer 1
-        self.fc1 = nn.Linear(in_features = 458752, out_features = 128)
+        self.fc1 = nn.Linear(in_features = 20808, out_features = 128)
         self.fc1_normed = nn.BatchNorm1d(128)
         torch_init.xavier_normal_(self.fc1.weight)
 
