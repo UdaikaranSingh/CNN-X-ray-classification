@@ -35,27 +35,27 @@ class arch2_cnn(nn.Module):
         super(arch2_cnn, self).__init__()
         
         #convolutional layer 1
-        self.conv1 = nn.Conv2d(in_channels = 1, out_channels = 16, kernel_size = 8)
+        self.conv1 = nn.Conv2d(in_channels = 1, out_channels = 16, kernel_size = 20)
         self.conv1_normed = nn.BatchNorm2d(16)
         torch_init.xavier_normal_(self.conv1.weight)
         
         #convolution layer 2
-        self.conv2 = nn.Conv2d(in_channels = 16, out_channels = 14, kernel_size = 8)
+        self.conv2 = nn.Conv2d(in_channels = 16, out_channels = 14, kernel_size = 20)
         self.conv2_normed = nn.BatchNorm2d(14)
         torch_init.xavier_normal_(self.conv2.weight)
 
         #convolutional layer 3
-        self.conv3 = nn.Conv2d(in_channels = 14, out_channels = 12, kernel_size = 8)
+        self.conv3 = nn.Conv2d(in_channels = 14, out_channels = 12, kernel_size = 20)
         self.conv3_normed = nn.BatchNorm2d(12)
         torch_init.xavier_normal_(self.conv3.weight)
 
         #convolutional layer 4
-        self.conv4 = nn.Conv2d(in_channels = 12, out_channels = 10, kernel_size = 6)
+        self.conv4 = nn.Conv2d(in_channels = 12, out_channels = 10, kernel_size = 20)
         self.conv4_normed = nn.BatchNorm2d(10)
         torch_init.xavier_normal_(self.conv4.weight)
 
         #convolutional layer 5
-        self.conv5 = nn.Conv2d(in_channels = 10, out_channels = 8, kernel_size = 6)
+        self.conv5 = nn.Conv2d(in_channels = 10, out_channels = 8, kernel_size = 20)
         self.conv5_normed = nn.BatchNorm2d(8)
         torch_init.xavier_normal_(self.conv5.weight)
 
@@ -87,7 +87,7 @@ class arch2_cnn(nn.Module):
         batch = batch.view(-1, self.num_flat_features(batch))
         
         #Fully Connected Layers
-        batch = func.relu(self.fc1(batch))
+        batch = func.relu(self.fc1_normed(self.fc1(batch)))
         batch = self.fc2(batch)
 
         return func.sigmoid(batch)
