@@ -23,6 +23,9 @@ Helper Files:
 
 ======================================
 What Each File Does:
-* Each Python Notebook corresponds to the respective experiment.
-* The xray_dataloaer.py is loads in the training data and makes partitions
-* There are 3 neural network architectures that define the architecture of each of the networks we tested
+* Each Python Notebook corresponds to the respective experiment. Running all the cells in an experiment 
+  will train the network, output loss and accuracy curves, output convolutional layer visualizations, 
+  test the network, output precision, recall, and BCR statistics, and print the confusion matrix.  
+* The xray_dataloaer.py loads in the training data and makes partitions
+* There are 3 neural network architectures that define the architecture of each of the networks we tested:
+  these architectures are defined in the helper files, which are imported in each experiment.
